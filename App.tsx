@@ -1,20 +1,32 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { LoadingScreen } from './src/components/LoadingScreen';
+import { NoticeBanner } from './src/components/NoticeBanner';
+import { InventoryProvider, useInventory } from './src/context/InventoryContext';
+import { RootNavigator } from './src/navigation/RootNavigator';
 
-export default function App() {
+/**
+ * The app waits for saved data to finish loading (isHydrated) before showing any screen,
+ * so the empty initial state never flashes and can never be saved over real records.
+ */
+function AppShell() {
+  const { isHydrated } = useInventory();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style="light" />
+      {isHydrated ? <RootNavigator /> : <LoadingScreen />}
+      <NoticeBanner />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <InventoryProvider>
+        <AppShell />
+      </InventoryProvider>
+    </SafeAreaProvider>
+  );
+}

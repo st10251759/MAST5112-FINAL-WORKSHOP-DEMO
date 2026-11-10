@@ -1,13 +1,16 @@
 {
   "expo": {
-    "name": "campus-gym-tracker",
+    "name": "CampusFit Inventory",
     "slug": "campus-gym-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#4C1D95"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
